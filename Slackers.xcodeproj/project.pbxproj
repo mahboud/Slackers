@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F85C1671EF45665007AF5C6 /* SlackersNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */; };
 		98DC1BB41EF39D98003DD614 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB31EF39D98003DD614 /* main.m */; };
 		98DC1BB71EF39D98003DD614 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB61EF39D98003DD614 /* AppDelegate.m */; };
 		98DC1BBA1EF39D98003DD614 /* SlackersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB91EF39D98003DD614 /* SlackersViewController.m */; };
@@ -18,13 +19,14 @@
 		98DC1BD21EF3B4AA003DD614 /* slack1.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DC1BCE1EF3B4AA003DD614 /* slack1.png */; };
 		98DC1BD31EF3B4AA003DD614 /* slack2.png in Resources */ = {isa = PBXBuildFile; fileRef = 98DC1BCF1EF3B4AA003DD614 /* slack2.png */; };
 		98DC1BD41EF3B4AA003DD614 /* slackbot.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 98DC1BD01EF3B4AA003DD614 /* slackbot.jpeg */; };
-		98DC1BD71EF3B699003DD614 /* SlackersLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BD61EF3B699003DD614 /* SlackersLayout.m */; };
 		98DC1BDB1EF3B95F003DD614 /* SlackersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BD91EF3B95F003DD614 /* SlackersCell.m */; };
 		98DC1BDC1EF3B95F003DD614 /* SlackersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98DC1BDA1EF3B95F003DD614 /* SlackersCell.xib */; };
 		98DC1BDF1EF3C03C003DD614 /* SlackersDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BDE1EF3C03C003DD614 /* SlackersDataModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F85C1651EF45665007AF5C6 /* SlackersNetworkEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackersNetworkEngine.h; sourceTree = "<group>"; };
+		2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlackersNetworkEngine.m; sourceTree = "<group>"; };
 		98DC1BAF1EF39D98003DD614 /* Slackers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slackers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DC1BB31EF39D98003DD614 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98DC1BB51EF39D98003DD614 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,8 +44,6 @@
 		98DC1BCE1EF3B4AA003DD614 /* slack1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slack1.png; sourceTree = "<group>"; };
 		98DC1BCF1EF3B4AA003DD614 /* slack2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slack2.png; sourceTree = "<group>"; };
 		98DC1BD01EF3B4AA003DD614 /* slackbot.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slackbot.jpeg; sourceTree = "<group>"; };
-		98DC1BD51EF3B699003DD614 /* SlackersLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlackersLayout.h; sourceTree = "<group>"; };
-		98DC1BD61EF3B699003DD614 /* SlackersLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlackersLayout.m; sourceTree = "<group>"; };
 		98DC1BD81EF3B95F003DD614 /* SlackersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlackersCell.h; sourceTree = "<group>"; };
 		98DC1BD91EF3B95F003DD614 /* SlackersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlackersCell.m; sourceTree = "<group>"; };
 		98DC1BDA1EF3B95F003DD614 /* SlackersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlackersCell.xib; sourceTree = "<group>"; };
@@ -90,6 +90,8 @@
 				98DC1BE01EF3C056003DD614 /* CollectionView */,
 				98DC1BDD1EF3C03C003DD614 /* SlackersDataModel.h */,
 				98DC1BDE1EF3C03C003DD614 /* SlackersDataModel.m */,
+				2F85C1651EF45665007AF5C6 /* SlackersNetworkEngine.h */,
+				2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */,
 				98DC1BBE1EF39D98003DD614 /* Assets.xcassets */,
 				98DC1BCD1EF3B4AA003DD614 /* slack-round.png */,
 				98DC1BCE1EF3B4AA003DD614 /* slack1.png */,
@@ -115,8 +117,6 @@
 			children = (
 				98DC1BCA1EF3A81F003DD614 /* SlackersDataSource.h */,
 				98DC1BCB1EF3A81F003DD614 /* SlackersDataSource.m */,
-				98DC1BD51EF3B699003DD614 /* SlackersLayout.h */,
-				98DC1BD61EF3B699003DD614 /* SlackersLayout.m */,
 				98DC1BD81EF3B95F003DD614 /* SlackersCell.h */,
 				98DC1BD91EF3B95F003DD614 /* SlackersCell.m */,
 				98DC1BDA1EF3B95F003DD614 /* SlackersCell.xib */,
@@ -201,11 +201,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F85C1671EF45665007AF5C6 /* SlackersNetworkEngine.m in Sources */,
 				98DC1BBA1EF39D98003DD614 /* SlackersViewController.m in Sources */,
 				98DC1BB71EF39D98003DD614 /* AppDelegate.m in Sources */,
 				98DC1BDF1EF3C03C003DD614 /* SlackersDataModel.m in Sources */,
 				98DC1BCC1EF3A81F003DD614 /* SlackersDataSource.m in Sources */,
-				98DC1BD71EF3B699003DD614 /* SlackersLayout.m in Sources */,
 				98DC1BDB1EF3B95F003DD614 /* SlackersCell.m in Sources */,
 				98DC1BB41EF39D98003DD614 /* main.m in Sources */,
 			);
@@ -370,6 +370,7 @@
 				98DC1BC81EF39D98003DD614 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

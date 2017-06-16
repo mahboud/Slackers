@@ -60,7 +60,8 @@
             <connections>
                 <outlet property="_activityIndicator" destination="plj-Vn-uum" id="ZDd-eT-OnU"/>
                 <outlet property="_circleView" destination="XcC-pc-O1q" id="zsQ-5V-BCQ"/>
-                <outlet property="imageView" destination="afz-Hf-q13" id="2Cj-jh-L2v"/>
+                <outlet property="_imageView" destination="afz-Hf-q13" id="RUm-np-Ixj"/>
+                <outlet property="imageView" destination="afz-Hf-q13" id="k5c-2n-Cyb"/>
                 <outlet property="label" destination="6RA-Mr-ssQ" id="SDG-zU-Igp"/>
             </connections>
             <point key="canvasLocation" x="93" y="139"/>

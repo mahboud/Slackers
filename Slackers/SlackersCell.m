@@ -19,11 +19,11 @@
   self.clipsToBounds = NO;
   _circleView.clipsToBounds = YES;
   _activityIndicator.layer.cornerRadius = 5;
-  _imageView.image = [UIImage imageNamed:@"slack-round"];
+  _imageView.image = [UIImage imageNamed:@"slack2"];
 }
 
 -(void)prepareForReuse {
-  _imageView.image = [UIImage imageNamed:@"slack-round"];
+  _imageView.image = [UIImage imageNamed:@"slack2"];
   [_activityIndicator startAnimating];
 }
 
@@ -31,6 +31,10 @@
   [super layoutSubviews];
   UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
   self.layer.shadowPath = path.CGPath;
+}
+
+- (void)setImage:(UIImage *)image {
+  _imageView.image = image;
   _circleView.layer.cornerRadius = _circleView.frame.size.width / 2;
 }
 

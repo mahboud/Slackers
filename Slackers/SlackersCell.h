@@ -10,6 +10,7 @@
 
 @interface SlackersCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 - (void)doneDownloaded;

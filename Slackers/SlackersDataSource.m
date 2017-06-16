@@ -21,21 +21,18 @@
 }
 
 - (void)setup {
-//  _layout = [[SlackersLayout alloc] init];
-//  self.collectionView.collectionViewLayout = _layout;
-  self.collectionView.showsHorizontalScrollIndicator = NO;
-  self.collectionView.showsVerticalScrollIndicator = NO;
-  //	layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//  _layout.itemSize = CGSizeMake(cell_width, cell_height);
+  self.collectionView.showsVerticalScrollIndicator = YES;
   _dataModel = [[SlackersDataModel alloc] init];
-  _numberOfSections = _dataModel.numberOfSections;
-  _numberOfItems = _dataModel.numberOfItems;
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
-  
   [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass(SlackersCell.class)
                                                   bundle:nil]
         forCellWithReuseIdentifier:NSStringFromClass(SlackersCell.class)];
+  [_dataModel fetchNewDataWithCompletionHandler:^(void) {
+    _numberOfSections = _dataModel.numberOfSections;
+    _numberOfItems = _dataModel.numberOfItems;
+    [self.collectionView reloadData];
+  }];
 }
 
 - (void) showCollectionView {
@@ -73,7 +70,7 @@
                           duration:0.5f
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^(void) {
-                          cell.imageView.image = image;
+                          cell.image = image;
                         }
                         completion:^(BOOL finished) {
                           [cell doneDownloaded];
@@ -84,11 +81,11 @@
     });
   }];
   if (image) {
-    cell.imageView.image = image;
+    cell.image = image;
     [cell doneDownloaded];
   }
   //  else {
-  //    cell.imageView.image = [UIImage imageNamed:@"slack-round"];
+  //    cell.image = [UIImage imageNamed:@"slack-round"];
   //  }
   return cell;
   

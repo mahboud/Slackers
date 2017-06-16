@@ -13,6 +13,8 @@
 @property (nonatomic) NSInteger numberOfSections;
 @property (nonatomic) NSInteger numberOfItems;
 
+- (void)fetchNewDataWithCompletionHandler:(void (^)(void))completionHandler;
+
 - (NSString *)getNameForPath:(NSIndexPath *)path;
 - (UIImage *)getImageForPath:(NSIndexPath *)path completionHandler:(void (^)(UIImage *))completionHandler;
 
