@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  SlackersViewController.h
 //  Slackers
 //
 //  Created by mahboud on 6/15/17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface SlackersViewController : UIViewController
 
 
 @end
