@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SlackersNetworkEngine : NSObject
+@interface SlackersNetworkEngine : NSObject <NSURLSessionDelegate>
+
+- (void)testAuthWithSuccessHandler:(void (^)(NSDictionary *result))successHandler
+                      errorHandler:(void (^)(NSError *error, NSString *errorString))errorHandler;
+
+- (void)getUserListWithSuccessHandler:(void (^)(NSDictionary *result))successHandler
+                         errorHandler:(void (^)(NSError *error, NSString *errorString))errorHandler;
 
 @end

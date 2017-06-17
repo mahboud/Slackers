@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) NSString *slackID;
 
 - (void)doneDownloaded;
 

@@ -23,6 +23,8 @@
 - (void)setup {
   self.collectionView.showsVerticalScrollIndicator = YES;
   _dataModel = [[SlackersDataModel alloc] init];
+  _numberOfSections = _dataModel.numberOfSections;
+  _numberOfItems = _dataModel.numberOfItems;
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass(SlackersCell.class)
@@ -61,8 +63,9 @@
   cellId = NSStringFromClass(SlackersCell.class);
   SlackersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
   
-  cell.label.text = [NSString stringWithFormat:@"%@(%ld,%ld)", [_dataModel getNameForPath:indexPath], (long)indexPath.section, (long)indexPath.item];
-  UIImage *image = [_dataModel getImageForPath:indexPath completionHandler:^(UIImage *image) {
+  cell.slackID = [_dataModel getIDForPath:indexPath];
+  cell.label.text = [NSString stringWithFormat:@"%@(%ld,%ld)", [_dataModel getNameForID:cell.slackID], (long)indexPath.section, (long)indexPath.item];
+  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
     dispatch_async(dispatch_get_main_queue(), ^ {
       SlackersCell *cell = (SlackersCell *) [self.collectionView cellForItemAtIndexPath:indexPath];
       if (cell) {

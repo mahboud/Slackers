@@ -15,7 +15,9 @@
 
 - (void)fetchNewDataWithCompletionHandler:(void (^)(void))completionHandler;
 
-- (NSString *)getNameForPath:(NSIndexPath *)path;
-- (UIImage *)getImageForPath:(NSIndexPath *)path completionHandler:(void (^)(UIImage *))completionHandler;
+- (NSString *)getIDForPath:(NSIndexPath *)path;
+
+- (NSString *)getNameForID:(NSString *)slackID;
+- (UIImage *)getImageForID:(NSString *)slackID completionHandler:(void (^)(UIImage *))completionHandler;
 
 @end

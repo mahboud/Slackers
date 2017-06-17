@@ -18,6 +18,7 @@
   // Initialization code
   self.clipsToBounds = NO;
   _circleView.clipsToBounds = YES;
+  _activityIndicator.layer.backgroundColor = UIColor.lightGrayColor.CGColor;
   _activityIndicator.layer.cornerRadius = 5;
   _imageView.image = [UIImage imageNamed:@"slack2"];
 }

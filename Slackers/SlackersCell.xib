@@ -41,9 +41,8 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="plj-Vn-uum">
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="plj-Vn-uum">
                         <rect key="frame" x="83" y="83.5" width="20" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
@@ -51,6 +50,8 @@
             <constraints>
                 <constraint firstItem="6RA-Mr-ssQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4XZ-ma-STb"/>
                 <constraint firstItem="6RA-Mr-ssQ" firstAttribute="top" secondItem="XcC-pc-O1q" secondAttribute="bottom" constant="8" id="9eJ-i9-lId"/>
+                <constraint firstItem="plj-Vn-uum" firstAttribute="centerY" secondItem="XcC-pc-O1q" secondAttribute="centerY" id="CMW-cH-C88"/>
+                <constraint firstItem="plj-Vn-uum" firstAttribute="centerX" secondItem="XcC-pc-O1q" secondAttribute="centerX" id="IfU-WE-paS"/>
                 <constraint firstAttribute="trailing" secondItem="6RA-Mr-ssQ" secondAttribute="trailing" id="Lbi-wb-KBe"/>
                 <constraint firstItem="XcC-pc-O1q" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Vln-1y-uaH"/>
                 <constraint firstItem="XcC-pc-O1q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="avq-Wh-ktn"/>
