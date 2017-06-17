@@ -16,4 +16,7 @@
 - (void)getUserListWithSuccessHandler:(void (^)(NSDictionary *result))successHandler
                          errorHandler:(void (^)(NSError *error, NSString *errorString))errorHandler;
 
+- (void)downloadImage:(NSURL *)downloadURL
+    completionHandler:(void (^)(NSURL *location))completionHandler;
+  
 @end

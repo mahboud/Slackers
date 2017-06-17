@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F85C1671EF45665007AF5C6 /* SlackersNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */; };
+		981AFB8E1EF51AD300D550B4 /* SlackersImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 981AFB8D1EF51AD300D550B4 /* SlackersImageManager.m */; };
 		98DC1BB41EF39D98003DD614 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB31EF39D98003DD614 /* main.m */; };
 		98DC1BB71EF39D98003DD614 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB61EF39D98003DD614 /* AppDelegate.m */; };
 		98DC1BBA1EF39D98003DD614 /* SlackersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB91EF39D98003DD614 /* SlackersViewController.m */; };
@@ -27,6 +28,8 @@
 /* Begin PBXFileReference section */
 		2F85C1651EF45665007AF5C6 /* SlackersNetworkEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackersNetworkEngine.h; sourceTree = "<group>"; };
 		2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlackersNetworkEngine.m; sourceTree = "<group>"; };
+		981AFB8C1EF51AD300D550B4 /* SlackersImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackersImageManager.h; sourceTree = "<group>"; };
+		981AFB8D1EF51AD300D550B4 /* SlackersImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlackersImageManager.m; sourceTree = "<group>"; };
 		98DC1BAF1EF39D98003DD614 /* Slackers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slackers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DC1BB31EF39D98003DD614 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98DC1BB51EF39D98003DD614 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				98DC1BDE1EF3C03C003DD614 /* SlackersDataModel.m */,
 				2F85C1651EF45665007AF5C6 /* SlackersNetworkEngine.h */,
 				2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */,
+				981AFB8C1EF51AD300D550B4 /* SlackersImageManager.h */,
+				981AFB8D1EF51AD300D550B4 /* SlackersImageManager.m */,
 				98DC1BBE1EF39D98003DD614 /* Assets.xcassets */,
 				98DC1BCD1EF3B4AA003DD614 /* slack-round.png */,
 				98DC1BCE1EF3B4AA003DD614 /* slack1.png */,
@@ -203,6 +208,7 @@
 			files = (
 				2F85C1671EF45665007AF5C6 /* SlackersNetworkEngine.m in Sources */,
 				98DC1BBA1EF39D98003DD614 /* SlackersViewController.m in Sources */,
+				981AFB8E1EF51AD300D550B4 /* SlackersImageManager.m in Sources */,
 				98DC1BB71EF39D98003DD614 /* AppDelegate.m in Sources */,
 				98DC1BDF1EF3C03C003DD614 /* SlackersDataModel.m in Sources */,
 				98DC1BCC1EF3A81F003DD614 /* SlackersDataSource.m in Sources */,
@@ -331,7 +337,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FG8NNNY6FP;
 				INFOPLIST_FILE = Slackers/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitsonthego.1apps.Slackers;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -344,7 +350,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FG8NNNY6FP;
 				INFOPLIST_FILE = Slackers/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitsonthego.1apps.Slackers;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -64,22 +64,14 @@
   SlackersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
   
   cell.slackID = [_dataModel getIDForPath:indexPath];
-  cell.label.text = [NSString stringWithFormat:@"%@(%ld,%ld)", [_dataModel getNameForID:cell.slackID], (long)indexPath.section, (long)indexPath.item];
+  cell.label.text = [NSString stringWithFormat:@"%@", [_dataModel getNameForID:cell.slackID]];
   UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
     dispatch_async(dispatch_get_main_queue(), ^ {
-      SlackersCell *cell = (SlackersCell *) [self.collectionView cellForItemAtIndexPath:indexPath];
+      if (image == nil)
+        return;
+      SlackersCell *cell = (SlackersCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
       if (cell) {
-        [UIView transitionWithView:cell.imageView
-                          duration:0.5f
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^(void) {
-                          cell.image = image;
-                        }
-                        completion:^(BOOL finished) {
-                          [cell doneDownloaded];
-                          if (finished) {
-                          }
-                        }];
+        [self transitionImage:image intoCell:cell];
       }
     });
   }];
@@ -87,11 +79,36 @@
     cell.image = image;
     [cell doneDownloaded];
   }
-  //  else {
-  //    cell.image = [UIImage imageNamed:@"slack-round"];
-  //  }
   return cell;
   
+}
+
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
+    dispatch_async(dispatch_get_main_queue(), ^ {
+      [self transitionImage:image intoCell:cell];
+    });
+  }];
+  if (image) {
+    cell.image = image;
+    [cell doneDownloaded];
+  }
+}
+
+- (void)transitionImage:(UIImage *)image intoCell:(SlackersCell *)cell {
+  if (image == nil)
+    return;
+  [UIView transitionWithView:cell.imageView
+                    duration:0.5f
+                     options:UIViewAnimationOptionTransitionCrossDissolve
+                  animations:^(void) {
+                    cell.image = image;
+                  }
+                  completion:^(BOOL finished) {
+                    [cell doneDownloaded];
+                    if (finished) {
+                    }
+                  }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
