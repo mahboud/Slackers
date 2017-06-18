@@ -21,13 +21,16 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
-
   _dataSource = [[SlackersDataSource alloc] init];
   _dataSource.collectionView = _collectionView;
   
   [_dataSource setup];
   
   _collectionView.alpha = 0;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+  return UIStatusBarStyleLightContent;
 }
 
 -(void)viewDidAppear:(BOOL)animated {

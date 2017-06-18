@@ -34,6 +34,7 @@
     _numberOfSections = _dataModel.numberOfSections;
     _numberOfItems = _dataModel.numberOfItems;
     [self.collectionView reloadData];
+    NSLog(@"reloading");
   }];
 }
 
@@ -62,14 +63,17 @@
   
   cellId = NSStringFromClass(SlackersCell.class);
   SlackersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-  
+
+  cell.indexPath = indexPath;
   cell.slackID = [_dataModel getIDForPath:indexPath];
   cell.label.text = [NSString stringWithFormat:@"%@", [_dataModel getNameForID:cell.slackID]];
+  NSLog(@"%s: getting image for id: %@ index: %@", __PRETTY_FUNCTION__, cell.slackID, indexPath);
   UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
     dispatch_async(dispatch_get_main_queue(), ^ {
       if (image == nil)
         return;
       SlackersCell *cell = (SlackersCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+      NSLog(@"%s: got image for id: %@, image %@, indexPath %@", __PRETTY_FUNCTION__, cell.slackID, image, cell.indexPath);
       if (cell) {
         [self transitionImage:image intoCell:cell];
       }
@@ -83,8 +87,13 @@
   
 }
 
+// The following is necessary for iOS 10, since the above does some prefetching.
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
+  NSLog(@"%s: getting image for id: %@ indexPath: %@, cell.index %@", __PRETTY_FUNCTION__, cell.slackID, indexPath, cell.indexPath);
+ UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
+   NSLog(@"%s: got image for id: %@, image %@ index: %@, cellindex: %@", __PRETTY_FUNCTION__, cell.slackID, image, indexPath, cell.indexPath);
+   if (indexPath.item != cell.indexPath.item )
+     NSLog(@"Oh oh" );
     dispatch_async(dispatch_get_main_queue(), ^ {
       [self transitionImage:image intoCell:cell];
     });

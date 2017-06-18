@@ -35,13 +35,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.68769242610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Vzg-8U-NSe" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="EMm-lH-Hog"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Vzg-8U-NSe" secondAttribute="bottom" id="R5n-wz-Ioi"/>
+                            <constraint firstItem="Vzg-8U-NSe" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="fyk-da-hTu"/>
                             <constraint firstAttribute="trailing" secondItem="Vzg-8U-NSe" secondAttribute="trailing" id="kze-e2-l30"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Vzg-8U-NSe" secondAttribute="bottom" id="rlI-XE-Vne"/>
                             <constraint firstItem="Vzg-8U-NSe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xtf-j4-1N8"/>
                         </constraints>
                     </view>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="collectionView" destination="Vzg-8U-NSe" id="Dfe-N2-uVo"/>
                     </connections>

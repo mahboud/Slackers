@@ -19,7 +19,8 @@ static NSString *const authTest = @"/api/auth.test";
 static NSString *const tokenKey = @"token";
 
 // Add valid token here
-static NSString *const token = @"xoxs-4111381947-186936593057-187440450611-8b992ff9f5";
+//static NSString *const token = @"xoxs-4111381947-186936593057-187440450611-8b992ff9f5";
+static NSString *const token = @"xoxs-3843528038-3843978729-199526105605-afd6b546e7";
 
 @implementation SlackersNetworkEngine {
   NSURLSession *_session;

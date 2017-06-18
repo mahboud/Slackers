@@ -8,14 +8,10 @@
 
 #import "SlackersDataModel.h"
 
+#import "GetDocumentsDirectory.h"
 #import "SlackersImageManager.h"
 #import "SlackersNetworkEngine.h"
 #import <UIKit/UIKit.h>
-
-NSString *GetDocumentsDirectory() {
-  NSArray <NSString *>*paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  return [paths firstObject];
-}
 
 static NSString *const kDefaultSavedListFileName = @"SlackersList";
 static NSString *const kSavedListFileExtension = @"data";
@@ -25,6 +21,7 @@ static NSString *const kUserListKeysTeam = @"team";
 static NSString *const kUserListKeysMembers = @"members";
 static NSString *const kUserListKeysProfile = @"profile";
 static NSString *const kUserListKeysRealName = @"real_name";
+static NSString *const kUserListKeysJustName = @"name";
 static NSString *const kUserListKeysUpdated = @"updated";
 static NSString *const kUserListKeysImg192 = @"image_192";
 static NSString *const kUserListKeysImg512 = @"image_512";
@@ -74,6 +71,7 @@ static NSString *const kUserListKeysImg512 = @"image_512";
     [networkEngine getUserListWithSuccessHandler:^(NSDictionary *result) {
       [self reconcileNewList:result[kUserListKeysMembers]];
       dispatch_async(dispatch_get_main_queue(), ^ {
+        NSLog(@"trigger reload");
         completionHandler();
       });
       [self saveUserList];
@@ -85,12 +83,20 @@ static NSString *const kUserListKeysImg512 = @"image_512";
   }];
 }
 
+- (NSString *)getUserName:(NSDictionary *)user {
+  // Some users don't have realnames. This is the workaround.
+  NSString *name = user[kUserListKeysProfile][kUserListKeysRealName];
+  if (name == nil || name.length == 0) {
+    name = user[kUserListKeysJustName];
+  }
+  return name;
+}
+
 - (NSArray *)sortUserList:(NSDictionary *)listOfUsers {
    return [listOfUsers keysSortedByValueUsingComparator:
            ^NSComparisonResult(NSDictionary *_Nonnull user1, NSDictionary *_Nonnull user2) {
-    
-    return [user1[kUserListKeysProfile][kUserListKeysRealName] localizedCompare:user2[kUserListKeysProfile][kUserListKeysRealName]];
-  }];
+             return [[self getUserName:user1] localizedCompare:[self getUserName:user2]];
+           }];
 }
 
 - (void)reconcileNewList:(NSArray <NSDictionary *>*)latestListOfUsers {
@@ -102,7 +108,6 @@ static NSString *const kUserListKeysImg512 = @"image_512";
   for (NSDictionary *user in latestListOfUsers) {
     NSString *slackUserID = user[@"id"];
     NSDictionary *existingUser = tempListOfUsers[slackUserID];
-#warning the >= should be changed to > after tessting
     BOOL profileChanged = NO;
     if ((existingUser == nil) || (profileChanged =
         (existingUser && user[kUserListKeysUpdated] > existingUser[kUserListKeysUpdated]))) {
@@ -131,7 +136,7 @@ static NSString *const kUserListKeysImg512 = @"image_512";
 }
 
 - (NSString *)getNameForID:(NSString *)slackID {
-  return _listOfUsers[slackID][kUserListKeysProfile][kUserListKeysRealName];
+  return [self getUserName:_listOfUsers[slackID]];
 }
 
 - (UIImage *)getImageForID:(NSString *)slackID
