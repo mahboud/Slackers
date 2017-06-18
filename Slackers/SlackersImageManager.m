@@ -13,13 +13,9 @@
 #import <UIKIt/UIKit.h>
 #include <time.h>
 
-static NSString *const kSavedFileDictionaryFileExtension = @"plist";
-static NSString *const kDefaultFileDictionaryfileID = @"ImageTempFileDictionary";
-
 @implementation SlackersImageManager {
   NSURLSession *_session;
   NSCache *_cache;
-  NSMutableDictionary <NSString *, NSString *>*_imageTempFileLocationsDictionary;
   NSMutableDictionary <NSString *, NSNumber *>*_pendingDownloads;
 }
 
@@ -38,41 +34,15 @@ static NSString *const kDefaultFileDictionaryfileID = @"ImageTempFileDictionary"
   self = [super init];
   if (self) {
     _cache = [[NSCache alloc] init];
-    _imageTempFileLocationsDictionary =
-      [NSDictionary dictionaryWithContentsOfFile:[self imageTempFileDictionaryPath]].mutableCopy;
-    if (_imageTempFileLocationsDictionary == nil) {
-      _imageTempFileLocationsDictionary = [NSMutableDictionary dictionaryWithCapacity:50];
-    }
     _pendingDownloads = [NSMutableDictionary dictionaryWithCapacity:50];
   }
   return self;
 }
 
-- (NSString *)imageTempFileDictionaryPath {
-  NSString *path = GetDocumentsDirectory();
-  return [[path stringByAppendingPathComponent:kDefaultFileDictionaryfileID]
-          stringByAppendingPathExtension:kSavedFileDictionaryFileExtension];
-}
-
-- (void)queueSaveFileDictionary {
-  dispatch_async(dispatch_get_main_queue(), ^ {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(saveImageTempFileDictionary:)
-                                               object:_imageTempFileLocationsDictionary];
-    [self performSelector:@selector(saveImageTempFileDictionary:)
-               withObject:_imageTempFileLocationsDictionary
-               afterDelay:15.0];
-  });
-}
-
-- (void)saveImageTempFileDictionary:(NSMutableDictionary *)dictionary {
-  [dictionary writeToFile:[self imageTempFileDictionaryPath] atomically:NO];
-}
-
 - (void)clearCacheForID:(NSString *)slackID {
+  // TDOD: Revisit. Must iterate through the keys and remove those that start with slackID.
 //  [_cache removeObjectForKey:slackID];
 //  // TODO: remove file from /tmp directory
-//  [_imageTempFileLocationsDictionary removeObjectForKey:slackID];
 }
 
 - (UIImage *)getImageForID:(NSString *)slackID
@@ -87,7 +57,7 @@ static NSString *const kDefaultFileDictionaryfileID = @"ImageTempFileDictionary"
   // Image is no longer in the cache
   // First check the /tmp directory. We leave images there for as long as the OS lets us.
   // Then download if not there.
-  NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:_imageTempFileLocationsDictionary[fileID]];
+  NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:fileID];
   if (path) {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
       UIImage *image = [self processImageFromFile:path];
@@ -117,7 +87,6 @@ static NSString *const kDefaultFileDictionaryfileID = @"ImageTempFileDictionary"
   if (lastTime && (lastTime.longValue + 5 > seconds)) {
     return;
   }
-  NSLog(@"Download: %@", fileID);
   _pendingDownloads[fileID] = @(seconds);
   [[[SlackersNetworkEngine alloc] init] downloadImage:downloadURL
                                     completionHandler:^(NSURL *location) {
@@ -133,8 +102,6 @@ static NSString *const kDefaultFileDictionaryfileID = @"ImageTempFileDictionary"
                                         [fileManager moveItemAtPath:location.path toPath:newLocationPath error:nil];
                                         
                                         NSLog(@"From network: %@", fileID);
-                                        _imageTempFileLocationsDictionary[fileID] = fileID;
-                                        [self queueSaveFileDictionary];
                                         [_cache setObject:image forKey:fileID];
                                       }
                                       completionHandler(image);
