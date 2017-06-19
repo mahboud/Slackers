@@ -30,7 +30,6 @@ static NSString *const kUserListKeysColor = @"color";
 static NSString *const kUserListKeysEmail = @"email";
 static NSString *const kUserListKeysPhone = @"phone";
 static NSString *const kUserListKeysIsDeleted = @"deleted";
-
 static NSString *const kUserListKeysIsAdmin = @"is_admin";
 static NSString *const kUserListKeysIsBot = @"is_bot";
 static NSString *const kUserListKeysIsOwner = @"is_owner";
@@ -190,6 +189,10 @@ static NSString *const kUserListKeysTZLabel = @"tz_label";
                                     blue:(blueChar & 0xff) / 255.0
                                    alpha:1.0];
   return color;
+}
+
+- (BOOL)isDeletedForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsDeleted]).boolValue;
 }
 
 - (BOOL)isAdminForID:(NSString *)slackID {

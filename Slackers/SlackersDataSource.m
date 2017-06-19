@@ -132,21 +132,44 @@
   [collectionView.superview convertRect:[cell convertRect:cell.imageView.frame fromView:cell.circleView] fromView:cell];
   NSString *allDetails = [[[_dataModel getAllDetailsForID:cell.slackID] allValues] componentsJoinedByString:@";"];
   NSLog(@"%@", allDetails);
-  NSMutableString *tempString = [NSMutableString stringWithFormat:@"Name: %@", [_dataModel getNameForID:cell.slackID]];
+  NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@\nID:%@", [_dataModel getNameForID:cell.slackID], cell.slackID];
   NSString *emailString = [_dataModel getEmailForID:cell.slackID];
   NSString *phoneString = [_dataModel getPhoneForID:cell.slackID];
-  if (emailString) {
+  if (emailString.length) {
     [tempString appendString:@"\n"];
     [tempString appendString:emailString];
   }
-  if (phoneString) {
+  if (phoneString.length) {
     [tempString appendString:@"\n"];
     [tempString appendString:phoneString];
   }
+  NSArray *isSometingStringsArray = @[
+                                      [_dataModel isDeletedForID:cell.slackID] ? @"Deleted, " : @"",
+                                      [_dataModel isAdminForID:cell.slackID] ? @"Administrator, " : @"",
+                                      [_dataModel isBotForID:cell.slackID] ? @"Bot\n" : @"",
+                                      [_dataModel isOwnerForID:cell.slackID] ? @"Owner, " : @"",
+                                      [_dataModel isPrimaryOwnerForID:cell.slackID] ? @"Primary Owner\n" : @"",
+                                      [_dataModel isRestrictedForID:cell.slackID] ? @"Restricted, " : @"",
+                                      [_dataModel isUltraRestricted:cell.slackID] ? @"Ultra Restricted\n" : @"",
+                                      ];
+  NSString *isSometingStrings = [isSometingStringsArray componentsJoinedByString:@""];
+  if (isSometingStrings.length) {
+    [tempString appendString:@"\n"];
+    [tempString appendString:isSometingStrings];
+  }
+  NSString *teamIDString = [_dataModel teamIDForID:cell.slackID];
+  if (teamIDString) {
+    [tempString appendString:@"\nTeam ID: "];
+    [tempString appendString:teamIDString];
+  }
+  NSString *tzLabelString = [_dataModel tzLabelForID:cell.slackID];
+  if (tzLabelString) {
+    [tempString appendString:@"\n"];
+    [tempString appendString:tzLabelString];
+  }
+  
   detailsVC.formattedDetailString = tempString.copy;
   detailsVC.userColor = [_dataModel getColorForID:cell.slackID];
-  [_delegate presentViewController:detailsVC animated:YES completion:^{
-    
-  }];
+  [_delegate presentViewController:detailsVC animated:YES completion:nil];
 }
 @end
