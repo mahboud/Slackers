@@ -18,6 +18,9 @@
 - (NSString *)getIDForPath:(NSIndexPath *)path;
 
 - (NSString *)getNameForID:(NSString *)slackID;
+- (NSString *)getEmailForID:(NSString *)slackID;
+- (NSString *)getPhoneForID:(NSString *)slackID;
 - (UIImage *)getImageForID:(NSString *)slackID completionHandler:(void (^)(UIImage *))completionHandler;
-
+- (NSDictionary *)getAllDetailsForID:(NSString *)slackID;
+- (UIColor *)getColorForID:(NSString *)slackID;
 @end

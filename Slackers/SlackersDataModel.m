@@ -26,6 +26,9 @@ static NSString *const kUserListKeysJustName = @"name";
 static NSString *const kUserListKeysUpdated = @"updated";
 static NSString *const kUserListKeysImg192 = @"image_192";
 static NSString *const kUserListKeysImg512 = @"image_512";
+static NSString *const kUserListKeysColor = @"color";
+static NSString *const kUserListKeysEmail = @"email";
+static NSString *const kUserListKeysPhone = @"phone";
 
 @implementation SlackersDataModel {
   NSDictionary <NSString *, NSDictionary *>*_listOfUsers;
@@ -137,6 +140,14 @@ static NSString *const kUserListKeysImg512 = @"image_512";
   return [self getUserName:_listOfUsers[slackID]];
 }
 
+- (NSString *)getEmailForID:(NSString *)slackID {
+  return _listOfUsers[slackID][kUserListKeysProfile][kUserListKeysEmail];
+}
+
+- (NSString *)getPhoneForID:(NSString *)slackID {
+  return _listOfUsers[slackID][kUserListKeysProfile][kUserListKeysPhone];
+}
+
 - (UIImage *)getImageForID:(NSString *)slackID
            completionHandler:(void (^)(UIImage *))completionHandler {
 
@@ -154,4 +165,18 @@ static NSString *const kUserListKeysImg512 = @"image_512";
                                               completionHandler(image);
                                             }];
 }
+
+- (NSDictionary *)getAllDetailsForID:(NSString *)slackID {
+  return _listOfUsers[slackID];
+}
+
+- (UIColor *)getColorForID:(NSString *)slackID {
+  NSString *colorString = _listOfUsers[slackID][kUserListKeysColor];
+  unichar redChar = [colorString characterAtIndex:0];
+  ushort blueChar = [colorString characterAtIndex:1];
+  ushort greenChar =  [colorString characterAtIndex:2];
+  UIColor *color = [UIColor colorWithRed:redChar / 255.0 green:greenChar / 255.0 blue:blueChar / 255.0 alpha:1.0];
+  return color;
+}
+
 @end
