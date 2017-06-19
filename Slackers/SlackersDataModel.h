@@ -23,4 +23,13 @@
 - (UIImage *)getImageForID:(NSString *)slackID completionHandler:(void (^)(UIImage *))completionHandler;
 - (NSDictionary *)getAllDetailsForID:(NSString *)slackID;
 - (UIColor *)getColorForID:(NSString *)slackID;
+- (BOOL)isAdminForID:(NSString *)slackID;
+- (BOOL)isBotForID:(NSString *)slackID;
+- (BOOL)isOwnerForID:(NSString *)slackID;
+- (BOOL)isPrimaryOwnerForID:(NSString *)slackID;
+- (BOOL)isRestrictedForID:(NSString *)slackID;
+- (BOOL)isUltraRestricted:(NSString *)slackID;
+- (NSString *)teamIDForID:(NSString *)slackID;
+- (NSString *)tzLabelForID:(NSString *)slackID;
+  
 @end

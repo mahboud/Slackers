@@ -37,8 +37,8 @@ static NSString *const kUserListKeysIsOwner = @"is_owner";
 static NSString *const kUserListKeysIsPrimaryOwner = @"is_primary_owner";
 static NSString *const kUserListKeysIsRestricted = @"is_restricted";
 static NSString *const kUserListKeysIsUltraRestricted = @"is_ultra_restricted";
-static NSString *const kUserListKeysIsTeamID = @"team_id";
-static NSString *const kUserListKeysIsTZLabel = @"tz_label";
+static NSString *const kUserListKeysTeamID = @"team_id";
+static NSString *const kUserListKeysTZLabel = @"tz_label";
 
 @implementation SlackersDataModel {
   NSDictionary <NSString *, NSDictionary *>*_listOfUsers;
