@@ -16,6 +16,7 @@
 static NSString *const kDefaultSavedListFileName = @"SlackersList";
 static NSString *const kSavedListFileExtension = @"data";
 
+static NSString *const kUserListKeysID = @"id";
 static NSString *const kUserListKeysUser = @"user";
 static NSString *const kUserListKeysTeam = @"team";
 static NSString *const kUserListKeysMembers = @"members";
@@ -56,11 +57,11 @@ static NSString *const kUserListKeysImg512 = @"image_512";
           stringByAppendingPathExtension:kSavedListFileExtension];
 }
 
-- (void)saveUserList {
-  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_listOfUsers];
+- (void)saveUserList:(NSDictionary *)userList {
+  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userList];
   BOOL success = [data writeToFile:[self savedListFilePath] atomically:YES];
   if (success == NO) {
-    NSLog(@"Save failed");
+    NSLog(@"Save failed. Filename: %@", [self savedListFilePath]);
   }
 }
 
@@ -69,12 +70,14 @@ static NSString *const kUserListKeysImg512 = @"image_512";
   [networkEngine testAuthWithSuccessHandler:^(id result) {
     NSLog(@"Verified: You are %@@%@", result[kUserListKeysUser], result[kUserListKeysTeam]);
     [networkEngine getUserListWithSuccessHandler:^(NSDictionary *result) {
-      [self reconcileNewList:result[kUserListKeysMembers]];
+      NSDictionary *tempListOfUsers = [self reconcileNewList:result[kUserListKeysMembers]];
+      NSArray *tempSortedIDArray = [self sortUserList:tempListOfUsers];
       dispatch_async(dispatch_get_main_queue(), ^ {
-        NSLog(@"trigger reload");
+        _listOfUsers = tempListOfUsers.copy;
+        _idsSortedByName = tempSortedIDArray;
         completionHandler();
       });
-      [self saveUserList];
+      [self saveUserList:tempListOfUsers];
     } errorHandler:^(NSError *error, NSString *errorString) {
       NSLog(@"Error!  Error is %@ (%ld)", errorString, (long)error.code);
     }];
@@ -99,14 +102,14 @@ static NSString *const kUserListKeysImg512 = @"image_512";
            }];
 }
 
-- (void)reconcileNewList:(NSArray <NSDictionary *>*)latestListOfUsers {
+- (NSDictionary *)reconcileNewList:(NSArray <NSDictionary *>*)latestListOfUsers {
   NSMutableDictionary *tempListOfUsers = _listOfUsers.mutableCopy;
   if (tempListOfUsers == nil) {
     tempListOfUsers = [NSMutableDictionary dictionaryWithCapacity:50];
   }
 
   for (NSDictionary *user in latestListOfUsers) {
-    NSString *slackUserID = user[@"id"];
+    NSString *slackUserID = user[kUserListKeysID];
     NSDictionary *existingUser = tempListOfUsers[slackUserID];
     BOOL profileChanged = NO;
     if ((existingUser == nil) || (profileChanged =
@@ -123,12 +126,7 @@ static NSString *const kUserListKeysImg512 = @"image_512";
     // not, then delete.
     
   }
-  NSArray *tempSortedIDArray = [self sortUserList:tempListOfUsers];
-  
-  @synchronized (self) {
-    _listOfUsers = tempListOfUsers.copy;
-    _idsSortedByName = tempSortedIDArray;
-  }
+  return tempListOfUsers.copy;
 }
 
 - (NSString *)getIDForPath:(NSIndexPath *)path {

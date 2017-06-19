@@ -10,6 +10,8 @@
 		2F85C1671EF45665007AF5C6 /* SlackersNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85C1661EF45665007AF5C6 /* SlackersNetworkEngine.m */; };
 		2FCCD2E91EF668B800ACC3F8 /* GetDocumentsDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCCD2E81EF668B800ACC3F8 /* GetDocumentsDirectory.m */; };
 		981AFB8E1EF51AD300D550B4 /* SlackersImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 981AFB8D1EF51AD300D550B4 /* SlackersImageManager.m */; };
+		9868F2711EF7A2F700C89237 /* SlackersDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9868F26F1EF7A2F600C89237 /* SlackersDetailsViewController.m */; };
+		9868F2721EF7A2F700C89237 /* SlackersDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9868F2701EF7A2F600C89237 /* SlackersDetailsViewController.xib */; };
 		98DC1BB41EF39D98003DD614 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB31EF39D98003DD614 /* main.m */; };
 		98DC1BB71EF39D98003DD614 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB61EF39D98003DD614 /* AppDelegate.m */; };
 		98DC1BBA1EF39D98003DD614 /* SlackersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98DC1BB91EF39D98003DD614 /* SlackersViewController.m */; };
@@ -33,6 +35,9 @@
 		2FCCD2E81EF668B800ACC3F8 /* GetDocumentsDirectory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetDocumentsDirectory.m; sourceTree = "<group>"; };
 		981AFB8C1EF51AD300D550B4 /* SlackersImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackersImageManager.h; sourceTree = "<group>"; };
 		981AFB8D1EF51AD300D550B4 /* SlackersImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlackersImageManager.m; sourceTree = "<group>"; };
+		9868F26E1EF7A2F600C89237 /* SlackersDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlackersDetailsViewController.h; sourceTree = "<group>"; };
+		9868F26F1EF7A2F600C89237 /* SlackersDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlackersDetailsViewController.m; sourceTree = "<group>"; };
+		9868F2701EF7A2F600C89237 /* SlackersDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SlackersDetailsViewController.xib; sourceTree = "<group>"; };
 		98DC1BAF1EF39D98003DD614 /* Slackers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slackers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DC1BB31EF39D98003DD614 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		98DC1BB51EF39D98003DD614 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,8 +96,10 @@
 				98DC1BB61EF39D98003DD614 /* AppDelegate.m */,
 				98DC1BB81EF39D98003DD614 /* SlackersViewController.h */,
 				98DC1BB91EF39D98003DD614 /* SlackersViewController.m */,
-				98DC1BC91EF3A500003DD614 /* SlackersGeometry.h */,
 				98DC1BBB1EF39D98003DD614 /* Main.storyboard */,
+				9868F26E1EF7A2F600C89237 /* SlackersDetailsViewController.h */,
+				9868F26F1EF7A2F600C89237 /* SlackersDetailsViewController.m */,
+				9868F2701EF7A2F600C89237 /* SlackersDetailsViewController.xib */,
 				98DC1BE01EF3C056003DD614 /* CollectionView */,
 				98DC1BDD1EF3C03C003DD614 /* SlackersDataModel.h */,
 				98DC1BDE1EF3C03C003DD614 /* SlackersDataModel.m */,
@@ -125,6 +132,7 @@
 		98DC1BE01EF3C056003DD614 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				98DC1BC91EF3A500003DD614 /* SlackersGeometry.h */,
 				98DC1BCA1EF3A81F003DD614 /* SlackersDataSource.h */,
 				98DC1BCB1EF3A81F003DD614 /* SlackersDataSource.m */,
 				98DC1BD81EF3B95F003DD614 /* SlackersCell.h */,
@@ -193,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9868F2721EF7A2F700C89237 /* SlackersDetailsViewController.xib in Resources */,
 				98DC1BD41EF3B4AA003DD614 /* slackbot.jpeg in Resources */,
 				98DC1BD21EF3B4AA003DD614 /* slack1.png in Resources */,
 				98DC1BC21EF39D98003DD614 /* LaunchScreen.storyboard in Resources */,
@@ -220,6 +229,7 @@
 				98DC1BDB1EF3B95F003DD614 /* SlackersCell.m in Sources */,
 				98DC1BB41EF39D98003DD614 /* main.m in Sources */,
 				2FCCD2E91EF668B800ACC3F8 /* GetDocumentsDirectory.m in Sources */,
+				9868F2711EF7A2F700C89237 /* SlackersDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,30 +9,22 @@
 #import "SlackersDataSource.h"
 
 #import "SlackersCell.h"
-//#import "SlackersLayout.h"
 #import "SlackersDataModel.h"
 #import "SlackersGeometry.h"
 
 @implementation SlackersDataSource {
-//  SlackersLayout *_layout;
-  NSInteger _numberOfSections;
-  NSInteger _numberOfItems;
   SlackersDataModel *_dataModel;
 }
 
 - (void)setup {
   self.collectionView.showsVerticalScrollIndicator = YES;
   _dataModel = [[SlackersDataModel alloc] init];
-  _numberOfSections = _dataModel.numberOfSections;
-  _numberOfItems = _dataModel.numberOfItems;
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass(SlackersCell.class)
                                                   bundle:nil]
         forCellWithReuseIdentifier:NSStringFromClass(SlackersCell.class)];
   [_dataModel fetchNewDataWithCompletionHandler:^(void) {
-    _numberOfSections = _dataModel.numberOfSections;
-    _numberOfItems = _dataModel.numberOfItems;
     [self.collectionView reloadData];
     NSLog(@"reloading");
   }];
@@ -48,13 +40,11 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-  
-  return _numberOfSections;
+  return _dataModel.numberOfSections;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-  
-  return _numberOfItems;
+  return _dataModel.numberOfItems;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -67,13 +57,11 @@
   cell.indexPath = indexPath;
   cell.slackID = [_dataModel getIDForPath:indexPath];
   cell.label.text = [NSString stringWithFormat:@"%@", [_dataModel getNameForID:cell.slackID]];
-  NSLog(@"%s: getting image for id: %@ index: %@", __PRETTY_FUNCTION__, cell.slackID, indexPath);
   UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
     dispatch_async(dispatch_get_main_queue(), ^ {
       if (image == nil)
         return;
       SlackersCell *cell = (SlackersCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
-      NSLog(@"%s: got image for id: %@, image %@, indexPath %@", __PRETTY_FUNCTION__, cell.slackID, image, cell.indexPath);
       if (cell) {
         [self transitionImage:image intoCell:cell];
       }
@@ -86,6 +74,7 @@
   return cell;
   
 }
+
 
 // The following is necessary for iOS 10, since the above does some prefetching.
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
