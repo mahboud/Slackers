@@ -77,6 +77,8 @@
 
 
 // The following is necessary for iOS 10, since the above does some prefetching.
+// I'm not going to spend much time worrying about this since iOS10+ support is
+// not a requirement.
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
   NSLog(@"%s: getting image for id: %@ indexPath: %@, cell.index %@", __PRETTY_FUNCTION__, cell.slackID, indexPath, cell.indexPath);
  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
