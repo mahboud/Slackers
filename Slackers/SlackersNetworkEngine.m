@@ -20,7 +20,7 @@ static NSString *const tokenKey = @"token";
 
 // Add valid token here
 //static NSString *const token = @"xoxp-4698769766-4698769768-125892898775-d1244403ab86f233f03dce6f9d2adf37";
-static NSString *const token = @"xoxp-4698769766-4698769768-125892898775-d1244403ab86f233f03dce6f9d2adf37";
+static NSString *const token = ;
 
 @implementation SlackersNetworkEngine {
   NSURLSession *_session;
