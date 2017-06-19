@@ -183,9 +183,12 @@ static NSString *const kUserListKeysTZLabel = @"tz_label";
 - (UIColor *)getColorForID:(NSString *)slackID {
   NSString *colorString = _listOfUsers[slackID][kUserListKeysColor];
   unichar redChar = [colorString characterAtIndex:0];
-  ushort blueChar = [colorString characterAtIndex:1];
-  ushort greenChar =  [colorString characterAtIndex:2];
-  UIColor *color = [UIColor colorWithRed:redChar / 255.0 green:greenChar / 255.0 blue:blueChar / 255.0 alpha:1.0];
+  unichar blueChar = [colorString characterAtIndex:1];
+  unichar greenChar =  [colorString characterAtIndex:2];
+  UIColor *color = [UIColor colorWithRed:(redChar & 0xff) / 255.0
+                                   green:(greenChar & 0xff) / 255.0
+                                    blue:(blueChar & 0xff) / 255.0
+                                   alpha:1.0];
   return color;
 }
 
