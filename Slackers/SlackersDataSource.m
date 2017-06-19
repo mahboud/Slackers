@@ -131,7 +131,6 @@
   detailsVC.avatarStartFrame =
   [collectionView.superview convertRect:[cell convertRect:cell.imageView.frame fromView:cell.circleView] fromView:cell];
   NSString *allDetails = [[[_dataModel getAllDetailsForID:cell.slackID] allValues] componentsJoinedByString:@";"];
-  NSLog(@"%@", allDetails);
   NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@\nID:%@", [_dataModel getNameForID:cell.slackID], cell.slackID];
   NSString *emailString = [_dataModel getEmailForID:cell.slackID];
   NSString *phoneString = [_dataModel getPhoneForID:cell.slackID];
