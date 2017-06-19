@@ -19,8 +19,8 @@ static NSString *const authTest = @"/api/auth.test";
 static NSString *const tokenKey = @"token";
 
 // Add valid token here
-//static NSString *const token = @"xoxs-4111381947-186936593057-187440450611-8b992ff9f5";
-static NSString *const token = @"xoxs-3843528038-3843978729-199526105605-afd6b546e7";
+//static NSString *const token = @"xoxp-4698769766-4698769768-125892898775-d1244403ab86f233f03dce6f9d2adf37";
+static NSString *const token = @"xoxp-4698769766-4698769768-125892898775-d1244403ab86f233f03dce6f9d2adf37";
 
 @implementation SlackersNetworkEngine {
   NSURLSession *_session;
@@ -82,7 +82,12 @@ static NSString *const token = @"xoxs-3843528038-3843978729-199526105605-afd6b54
                   else {
                     if ([objectFromJSON isKindOfClass:NSDictionary.class]) {
                       NSDictionary *jsonResults = objectFromJSON;
-                      successHandler(jsonResults);
+                      if (((NSNumber *)jsonResults[@"ok"]).intValue == 0) {
+                        errorHandler(nil, jsonResults[@"error"]);
+                      }
+                      else {
+                        successHandler(jsonResults);
+                      }
                     }
                     else {
                       errorHandler(nil, @"JSON Not a Dictionary");
