@@ -10,6 +10,7 @@
 
 #import "SlackersCell.h"
 #import "SlackersDataModel.h"
+#import "SlackersDetailsViewController.h"
 #import "SlackersGeometry.h"
 
 @implementation SlackersDataSource {
@@ -54,7 +55,6 @@
   cellId = NSStringFromClass(SlackersCell.class);
   SlackersCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
 
-  cell.indexPath = indexPath;
   cell.slackID = [_dataModel getIDForPath:indexPath];
   cell.label.text = [NSString stringWithFormat:@"%@", [_dataModel getNameForID:cell.slackID]];
   UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
@@ -76,11 +76,12 @@
 }
 
 
+#if 0
 // The following is necessary for iOS 10, since the above does some prefetching.
 // I'm not going to spend much time worrying about this since iOS10+ support is
 // not a requirement.
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-  NSLog(@"%s: getting image for id: %@ indexPath: %@, cell.index %@", __PRETTY_FUNCTION__, cell.slackID, indexPath, cell.indexPath);
+  NSLog(@"%s: getting image for id: %@ indexPath: %@, cell.index %@ %d", __PRETTY_FUNCTION__, cell.slackID, indexPath, cell.indexPath, __IPHONE_OS_VERSION_MAX_ALLOWED);
  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
    NSLog(@"%s: got image for id: %@, image %@ index: %@, cellindex: %@", __PRETTY_FUNCTION__, cell.slackID, image, indexPath, cell.indexPath);
    if (indexPath.item != cell.indexPath.item )
@@ -94,6 +95,7 @@
     [cell doneDownloaded];
   }
 }
+#endif
 
 - (void)transitionImage:(UIImage *)image intoCell:(SlackersCell *)cell {
   if (image == nil)
@@ -120,4 +122,31 @@
   return CGSizeMake(width, height);
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  SlackersCell *cell = (SlackersCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+  SlackersDetailsViewController *detailsVC = [[SlackersDetailsViewController alloc] init];
+  detailsVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+  detailsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+  detailsVC.avatarImage = cell.imageView.image;
+  detailsVC.avatarStartFrame =
+  [collectionView.superview convertRect:[cell convertRect:cell.imageView.frame fromView:cell.circleView] fromView:cell];
+  NSString *allDetails = [[[_dataModel getAllDetailsForID:cell.slackID] allValues] componentsJoinedByString:@";"];
+  NSLog(@"%@", allDetails);
+  NSMutableString *tempString = [NSMutableString stringWithFormat:@"Name: %@", [_dataModel getNameForID:cell.slackID]];
+  NSString *emailString = [_dataModel getEmailForID:cell.slackID];
+  NSString *phoneString = [_dataModel getPhoneForID:cell.slackID];
+  if (emailString) {
+    [tempString appendString:@"\n"];
+    [tempString appendString:emailString];
+  }
+  if (phoneString) {
+    [tempString appendString:@"\n"];
+    [tempString appendString:phoneString];
+  }
+  detailsVC.formattedDetailString = tempString.copy;
+  detailsVC.userColor = [_dataModel getColorForID:cell.slackID];
+  [_delegate presentViewController:detailsVC animated:YES completion:^{
+    
+  }];
+}
 @end
