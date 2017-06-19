@@ -29,6 +29,16 @@ static NSString *const kUserListKeysImg512 = @"image_512";
 static NSString *const kUserListKeysColor = @"color";
 static NSString *const kUserListKeysEmail = @"email";
 static NSString *const kUserListKeysPhone = @"phone";
+static NSString *const kUserListKeysIsDeleted = @"deleted";
+
+static NSString *const kUserListKeysIsAdmin = @"is_admin";
+static NSString *const kUserListKeysIsBot = @"is_bot";
+static NSString *const kUserListKeysIsOwner = @"is_owner";
+static NSString *const kUserListKeysIsPrimaryOwner = @"is_primary_owner";
+static NSString *const kUserListKeysIsRestricted = @"is_restricted";
+static NSString *const kUserListKeysIsUltraRestricted = @"is_ultra_restricted";
+static NSString *const kUserListKeysIsTeamID = @"team_id";
+static NSString *const kUserListKeysIsTZLabel = @"tz_label";
 
 @implementation SlackersDataModel {
   NSDictionary <NSString *, NSDictionary *>*_listOfUsers;
@@ -177,6 +187,38 @@ static NSString *const kUserListKeysPhone = @"phone";
   ushort greenChar =  [colorString characterAtIndex:2];
   UIColor *color = [UIColor colorWithRed:redChar / 255.0 green:greenChar / 255.0 blue:blueChar / 255.0 alpha:1.0];
   return color;
+}
+
+- (BOOL)isAdminForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsAdmin]).boolValue;
+}
+
+- (BOOL)isBotForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsBot]).boolValue;
+}
+
+- (BOOL)isOwnerForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsOwner]).boolValue;
+}
+
+- (BOOL)isPrimaryOwnerForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsPrimaryOwner]).boolValue;
+}
+
+- (BOOL)isRestrictedForID:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsRestricted]).boolValue;
+}
+
+- (BOOL)isUltraRestricted:(NSString *)slackID {
+  return ((NSNumber *)_listOfUsers[slackID][kUserListKeysIsUltraRestricted]).boolValue;
+}
+
+- (NSString *)teamIDForID:(NSString *)slackID {
+  return _listOfUsers[slackID][kUserListKeysTeamID];
+}
+
+- (NSString *)tzLabelForID:(NSString *)slackID {
+  return _listOfUsers[slackID][kUserListKeysTZLabel];
 }
 
 @end
