@@ -7,10 +7,9 @@
 //
 
 #import "SlackersViewController.h"
-
 #import "SlackersDataSource.h"
 
-@interface SlackersViewController ()
+@interface SlackersViewController () <SlackerDataSourceDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) SlackersDataSource *dataSource;
 
@@ -23,7 +22,7 @@
   // Do any additional setup after loading the view, typically from a nib.
   _dataSource = [[SlackersDataSource alloc] init];
   _dataSource.collectionView = _collectionView;
-  
+  _dataSource.delegate = self;
   [_dataSource setup];
   
   _collectionView.alpha = 0;
@@ -42,6 +41,5 @@
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
 }
-
 
 @end
