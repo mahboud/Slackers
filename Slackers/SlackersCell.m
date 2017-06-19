@@ -10,7 +10,6 @@
 
 @implementation SlackersCell {
   IBOutlet UIActivityIndicatorView *_activityIndicator;
-  IBOutlet UIView *_circleView;
 }
 
 - (void)awakeFromNib {
@@ -35,11 +34,13 @@
   [super layoutSubviews];
   UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
   self.layer.shadowPath = path.CGPath;
+  _circleView.layer.cornerRadius = _circleView.frame.size.width / 2;
 }
 
 - (void)setImage:(UIImage *)image {
   _imageView.image = image;
   _circleView.layer.cornerRadius = _circleView.frame.size.width / 2;
+  [self setNeedsLayout];
 }
 
 -(void)doneDownloaded {

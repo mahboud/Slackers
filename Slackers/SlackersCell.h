@@ -10,10 +10,10 @@
 
 @interface SlackersCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIView *circleView;
 @property (weak, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) NSString *slackID;
-@property (strong, nonatomic) NSIndexPath *indexPath;
 
 - (void)doneDownloaded;
 
