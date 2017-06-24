@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol SlackersDataModelDelegate
+@required
+- (void)reloadData;
+@end
 
 @interface SlackersDataModel : NSObject
 
 @property (nonatomic) NSInteger numberOfSections;
 @property (nonatomic) NSInteger numberOfItems;
+@property (nonatomic, weak) id <SlackersDataModelDelegate> delegate;
 
-- (void)fetchNewDataWithCompletionHandler:(void (^)(void))completionHandler;
-
+- (void)fetchNewData;
 - (NSString *)getIDForPath:(NSIndexPath *)path;
-
 - (NSString *)getNameForID:(NSString *)slackID;
 - (NSString *)getEmailForID:(NSString *)slackID;
 - (NSString *)getPhoneForID:(NSString *)slackID;

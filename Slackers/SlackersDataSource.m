@@ -13,6 +13,9 @@
 #import "SlackersDetailsViewController.h"
 #import "SlackersGeometry.h"
 
+@interface SlackersDataSource () <SlackersDataModelDelegate>
+@end
+
 @implementation SlackersDataSource {
   SlackersDataModel *_dataModel;
 }
@@ -20,15 +23,13 @@
 - (void)setup {
   self.collectionView.showsVerticalScrollIndicator = YES;
   _dataModel = [[SlackersDataModel alloc] init];
+  _dataModel.delegate = self;
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass(SlackersCell.class)
                                                   bundle:nil]
         forCellWithReuseIdentifier:NSStringFromClass(SlackersCell.class)];
-  [_dataModel fetchNewDataWithCompletionHandler:^(void) {
-    [self.collectionView reloadData];
-    NSLog(@"reloading");
-  }];
+  [_dataModel fetchNewData];
 }
 
 - (void) showCollectionView {
@@ -38,6 +39,10 @@
                    animations:^{
                      _collectionView.alpha = 1.0;
                    }];
+}
+
+- (void)reloadData {
+  [self.collectionView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -82,10 +87,10 @@
 // not a requirement.
 -(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SlackersCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
   NSLog(@"%s: getting image for id: %@ indexPath: %@, cell.index %@ %d", __PRETTY_FUNCTION__, cell.slackID, indexPath, cell.indexPath, __IPHONE_OS_VERSION_MAX_ALLOWED);
- UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
-   NSLog(@"%s: got image for id: %@, image %@ index: %@, cellindex: %@", __PRETTY_FUNCTION__, cell.slackID, image, indexPath, cell.indexPath);
-   if (indexPath.item != cell.indexPath.item )
-     NSLog(@"Oh oh" );
+  UIImage *image = [_dataModel getImageForID:cell.slackID completionHandler:^(UIImage *image) {
+    NSLog(@"%s: got image for id: %@, image %@ index: %@, cellindex: %@", __PRETTY_FUNCTION__, cell.slackID, image, indexPath, cell.indexPath);
+    if (indexPath.item != cell.indexPath.item )
+      NSLog(@"Oh oh" );
     dispatch_async(dispatch_get_main_queue(), ^ {
       [self transitionImage:image intoCell:cell];
     });
@@ -130,7 +135,6 @@
   detailsVC.avatarImage = cell.imageView.image;
   detailsVC.avatarStartFrame =
   [collectionView.superview convertRect:[cell convertRect:cell.imageView.frame fromView:cell.circleView] fromView:cell];
-  NSString *allDetails = [[[_dataModel getAllDetailsForID:cell.slackID] allValues] componentsJoinedByString:@";"];
   NSMutableString *tempString = [NSMutableString stringWithFormat:@"%@\nID:%@", [_dataModel getNameForID:cell.slackID], cell.slackID];
   NSString *emailString = [_dataModel getEmailForID:cell.slackID];
   NSString *phoneString = [_dataModel getPhoneForID:cell.slackID];

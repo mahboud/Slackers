@@ -77,7 +77,7 @@ static NSString *const kUserListKeysTZLabel = @"tz_label";
   }
 }
 
-- (void)fetchNewDataWithCompletionHandler:(void (^)(void))completionHandler {
+- (void)fetchNewData {
   SlackersNetworkEngine *networkEngine = [[SlackersNetworkEngine alloc] init];
   [networkEngine testAuthWithSuccessHandler:^(id result) {
     NSLog(@"Verified: You are %@@%@", result[kUserListKeysUser], result[kUserListKeysTeam]);
@@ -87,7 +87,7 @@ static NSString *const kUserListKeysTZLabel = @"tz_label";
       dispatch_async(dispatch_get_main_queue(), ^ {
         _listOfUsers = tempListOfUsers.copy;
         _idsSortedByName = tempSortedIDArray;
-        completionHandler();
+        [_delegate reloadData];
       });
       [self saveUserList:tempListOfUsers];
     } errorHandler:^(NSError *error, NSString *errorString) {
